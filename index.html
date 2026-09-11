@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ar-tist — Digital Experiences</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #050505;
+      color: #f5f5f5;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* AMBIENT BACKGROUND */
+
+    body::before {
+      content: "";
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      top: -200px;
+      left: -150px;
+      background: radial-gradient(
+        circle,
+        rgba(255,255,255,0.08),
+        transparent 65%
+      );
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      right: -200px;
+      bottom: -150px;
+      background: radial-gradient(
+        circle,
+        rgba(255,255,255,0.06),
+        transparent 65%
+      );
+      filter: blur(90px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* NAVBAR */
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 25px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(5,5,5,0.7);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: #777;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 140px 7% 80px;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .eyebrow {
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 12px;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(65px, 10vw, 150px);
+      line-height: 0.9;
+      font-weight: 500;
+      letter-spacing: -6px;
+      margin-bottom: 35px;
+    }
+
+    .hero h1 span {
+      color: #777;
+    }
+
+    .hero p {
+      max-width: 600px;
+      color: #aaa;
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 25px;
+      text-decoration: none;
+      border: 1px solid #444;
+      color: white;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .btn.primary {
+      background: white;
+      color: black;
+      border-color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 35px rgba(255,255,255,0.12);
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 120px 7%;
+    }
+
+    .section-label {
+      color: #777;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 11px;
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 6vw, 75px);
+      font-weight: 500;
+      margin-bottom: 60px;
+    }
+
+    /* ABOUT */
+
+    .about {
+      border-top: 1px solid #222;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+
+    .about-text {
+      color: #aaa;
+      line-height: 1.9;
+      font-size: 17px;
+    }
+
+    .about-box {
+      border: 1px solid #292929;
+      padding: 35px;
+      background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.04),
+        rgba(255,255,255,0.01)
+      );
+    }
+
+    .about-box h3 {
+      margin-bottom: 15px;
+    }
+
+    .about-box p {
+      color: #888;
+      line-height: 1.7;
+    }
+
+    /* SERVICES */
+
+    .services {
+      border-top: 1px solid #222;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service-card {
+      padding: 40px 30px;
+      min-height: 260px;
+      border: 1px solid #292929;
+      background: #080808;
+      transition: 0.4s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: #555;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+
+    .service-number {
+      color: #666;
+      font-size: 12px;
+      margin-bottom: 50px;
+    }
+
+    .service-card h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .service-card p {
+      color: #777;
+      line-height: 1.7;
+    }
+
+    /* PRICING */
+
+    .pricing {
+      border-top: 1px solid #222;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .price-card {
+      border: 1px solid #292929;
+      padding: 40px 30px;
+      background: linear-gradient(
+        145deg,
+        #0b0b0b,
+        #050505
+      );
+      transition: 0.4s;
+    }
+
+    .price-card:hover {
+      transform: translateY(-8px);
+      border-color: #777;
+    }
+
+    .price-card.featured {
+      border-color: #aaa;
+      box-shadow: 0 0 60px rgba(255,255,255,0.04);
+    }
+
+    .price-card h3 {
+      font-size: 20px;
+      margin-bottom: 25px;
+    }
+
+    .price {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      margin-bottom: 30px;
+    }
+
+    .price-card ul {
+      list-style: none;
+      color: #999;
+      line-height: 2.2;
+      font-size: 14px;
+      margin-bottom: 35px;
+    }
+
+    .price-card li::before {
+      content: "— ";
+      color: #555;
+    }
+
+    /* CLIENTS */
+
+    .clients {
+      border-top: 1px solid #222;
+    }
+
+    .client-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .client {
+      padding: 18px 25px;
+      border: 1px solid #292929;
+      color: #888;
+      background: #080808;
+      transition: 0.3s;
+    }
+
+    .client:hover {
+      color: white;
+      border-color: #666;
+    }
+
+    .client-note {
+      color: #555;
+      margin-top: 25px;
+      font-size: 13px;
+    }
+
+    /* REVIEWS */
+
+    .reviews {
+      border-top: 1px solid #222;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .review {
+      border: 1px solid #292929;
+      padding: 35px;
+      background: #080808;
+    }
+
+    .stars {
+      letter-spacing: 4px;
+      margin-bottom: 25px;
+      color: #ddd;
+    }
+
+    .review p {
+      color: #999;
+      line-height: 1.8;
+      margin-bottom: 25px;
+    }
+
+    .review h4 {
+      font-size: 14px;
+    }
+
+    .review span {
+      color: #555;
+      font-size: 12px;
+    }
+
+    /* CONTACT */
+
+    .contact {
+      border-top: 1px solid #222;
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(45px, 7vw, 90px);
+      font-weight: 500;
+      margin-bottom: 25px;
+    }
+
+    .contact p {
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+
+    .contact-item {
+      padding: 18px 25px;
+      border: 1px solid #292929;
+      color: #aaa;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 40px 7%;
+      border-top: 1px solid #222;
+      display: flex;
+      justify-content: space-between;
+      color: #555;
+      font-size: 12px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      nav {
+        padding: 20px 5%;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      section {
+        padding: 90px 5%;
+      }
+
+      .hero {
+        padding: 130px 5% 80px;
+      }
+
+      .hero h1 {
+        letter-spacing: -3px;
+      }
+
+      .about-grid,
+      .service-grid,
+      .pricing-grid,
+      .review-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid {
+        gap: 30px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+
+  <nav>
+    <div class="logo">ar<span>-</span>tist</div>
+
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#clients">Clients</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- HERO -->
+
+  <header class="hero">
+
+    <div class="hero-content">
+
+      <div class="eyebrow">
+        Digital studio · Vaal
+      </div>
+
+      <h1>
+        We create<br>
+        <span>digital presence.</span>
+      </h1>
+
+      <p>
+        ar-tist is a digital design studio from the Vaal,
+        creating modern websites and marketing experiences
+        for businesses ready to be seen differently.
+      </p>
+
+      <div class="buttons">
+        <a href="#pricing" class="btn primary">
+          View our work
+        </a>
+
+        <a href="#contact" class="btn">
+          Start a project
+        </a>
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- ABOUT -->
+
+  <section class="about" id="about">
+
+    <div class="section-label">
+      01 — About
+    </div>
+
+    <h2 class="section-title">
+      Quiet design.<br>
+      Loud results.
+    </h2>
+
+    <div class="about-grid">
+
+      <div class="about-text">
+
+        We believe a website should feel like more than
+        a collection of pages.
+
+        <br><br>
+
+        It should represent the business behind it,
+        communicate trust and make people want to
+        stay.
+
+        <br><br>
+
+        From small local businesses to growing brands,
+        we build digital experiences designed to look
+        premium without losing personality.
+
+      </div>
+
+      <div class="about-box">
+
+        <h3>Based in the Vaal.</h3>
+
+        <p>
+          Available for businesses across South Africa
+          and beyond.
+        </p>
+
+        <br>
+
+        <p>
+          Available daily from
+          <strong>10:00 AM — 09:00 PM</strong>
+          UTC+2.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SERVICES -->
+
+  <section class="services" id="services">
+
+    <div class="section-label">
+      02 — Services
+    </div>
+
+    <h2 class="section-title">
+      Built for<br>
+      attention.
+    </h2>
+
+    <div class="service-grid">
+
+      <div class="service-card">
+
+        <div class="service-number">01</div>
+
+        <h3>Web Design</h3>
+
+        <p>
+          Modern, responsive websites designed around
+          your business, brand and customers.
+        </p>
+
+      </div>
+
+
+      <div class="service-card">
+
+        <div class="service-number">02</div>
+
+        <h3>Marketing</h3>
+
+        <p>
+          Digital marketing strategies and creative
+          content designed to put your business in
+          front of more people.
+        </p>
+
+      </div>
+
+
+      <div class="service-card">
+
+        <div class="service-number">03</div>
+
+        <h3>Digital Identity</h3>
+
+        <p>
+          We help businesses create a consistent,
+          professional presence across the digital
+          world.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PRICING -->
+
+  <section class="pricing" id="pricing">
+
+    <div class="section-label">
+      03 — Pricing
+    </div>
+
+    <h2 class="section-title">
+      Choose your<br>
+      level.
+    </h2>
+
+    <div class="pricing-grid">
+
+      <!-- SMALL -->
+
+      <div class="price-card">
+
+        <h3>Small Scale</h3>
+
+        <div class="price">
+          R1,500 — R2,500
+        </div>
+
+        <ul>
+          <li>Professional website</li>
+          <li>Responsive design</li>
+          <li>Business information</li>
+          <li>Contact integration</li>
+        </ul>
+
+        <a href="#contact" class="btn">
+          Get started
+        </a>
+
+      </div>
+
+
+      <!-- MEDIUM -->
+
+      <div class="price-card featured">
+
+        <h3>Medium Scale</h3>
+
+        <div class="price">
+          R2,500 — R4,000
+        </div>
+
+        <ul>
+          <li>Professional website</li>
+          <li>Responsive design</li>
+          <li>Marketing support</li>
+          <li>Business branding</li>
+          <li>Social media direction</li>
+        </ul>
+
+        <a href="#contact" class="btn primary">
+          Get started
+        </a>
+
+      </div>
+
+
+      <!-- LARGE -->
+
+      <div class="price-card">
+
+        <h3>Large Scale</h3>
+
+        <div class="price">
+          R4,000 — R6,000
+        </div>
+
+        <ul>
+          <li>Premium website</li>
+          <li>Marketing</li>
+          <li>Top priority</li>
+          <li>Priority communication</li>
+          <li>Available anytime</li>
+        </ul>
+
+        <a href="#contact" class="btn">
+          Get started
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PAST CLIENTS -->
+
+  <section class="clients" id="clients">
+
+    <div class="section-label">
+      04 — Selected clients
+    </div>
+
+    <h2 class="section-title">
+      Brands we've<br>
+      worked with.
+    </h2>
+
+    <div class="client-list">
+
+      <!-- Replace these with real clients -->
+
+      <div class="client">Client One</div>
+      <div class="client">Client Two</div>
+      <div class="client">Client Three</div>
+      <div class="client">Client Four</div>
+      <div class="client">Client Five</div>
+
+    </div>
+
+    <p class="client-note">
+      * Replace these placeholders with your actual past clients.
+      Don't claim a company as a client unless you've actually
+      worked with them.
+    </p>
+
+  </section>
+
+
+  <!-- REVIEWS -->
+
+  <section class="reviews">
+
+    <div class="section-label">
+      05 — Client reviews
+    </div>
+
+    <h2 class="section-title">
+      Words from<br>
+      our clients.
+    </h2>
+
+    <div class="review-grid">
+
+
+      <div class="review">
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p>
+          “The website completely changed the way
+          our business looks online. Clean, professional
+          and exactly what we wanted.”
+        </p>
+
+        <h4>
+          Client Name
+        </h4>
+
+        <span>
+          Business Name
+        </span>
+
+      </div>
+
+
+      <div class="review">
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p>
+          “ar-tist understood the vision immediately.
+          The final result felt much more premium
+          than we expected.”
+        </p>
+
+        <h4>
+          Client Name
+        </h4>
+
+        <span>
+          Business Name
+        </span>
+
+      </div>
+
+
+      <div class="review">
+
+        <div class="stars">
+          ★★★★★
+        </div>
+
+        <p>
+          “Professional, responsive and easy to work
+          with. Our online presence finally represents
+          the quality of our business.”
+        </p>
+
+        <h4>
+          Client Name
+        </h4>
+
+        <span>
+          Business Name
+        </span>
+
+      </div>
+
+    </div>
+
+    <p class="client-note">
+      * Replace these example reviews with genuine
+      reviews from your actual clients.
+    </p>
+
+  </section>
+
+
+  <!-- CONTACT -->
+
+  <section class="contact" id="contact">
+
+    <div class="section-label">
+      06 — Contact
+    </div>
+
+    <h2>
+      Let's create<br>
+      something.
+    </h2>
+
+    <p>
+      Have a business that needs a stronger digital presence?
+      Let's talk.
+    </p>
+
+    <div class="buttons" style="justify-content:center;">
+
+      <a
+        href="https://wa.me/27670890691"
+        class="btn primary"
+        target="_blank"
+      >
+        WhatsApp us
+      </a>
+
+    </div>
+
+
+    <div class="contact-info">
+
+      <div class="contact-item">
+        +27 67 089 0691
+      </div>
+
+      <div class="contact-item">
+        +27 61 901 2865
+      </div>
+
+      <div class="contact-item">
+        Vaal · South Africa
+      </div>
+
+      <div class="contact-item">
+        10:00 AM — 09:00 PM UTC+2
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div>
+      © 2026 ar-tist
+    </div>
+
+    <div>
+      Digital design · Web · Marketing
+    </div>
+
+  </footer>
+
+
+  <!-- SMALL JAVASCRIPT -->
+
+  <script>
+
+    // Smooth reveal animation when sections enter the screen
+
+    const cards = document.querySelectorAll(
+      '.service-card, .price-card, .review, .client'
+    );
+
+    const observer = new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+
+    cards.forEach(card => {
+
+      card.style.opacity = "0";
+      card.style.transform = "translateY(25px)";
+      card.style.transition =
+        "opacity 0.8s ease, transform 0.8s ease";
+
+      observer.observe(card);
+
+    });
+
+  </script>
+
+</body>
+</html>
